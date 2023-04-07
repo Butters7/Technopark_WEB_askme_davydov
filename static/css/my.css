@@ -1,4 +1,9 @@
-.askbg {
-  background: #ef7109;
-  width: 5%;
+.main-content {
+    padding-top: 75px;
+}
+
+.background-photo {
+    background-image: url('../img/Bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }

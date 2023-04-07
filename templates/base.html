@@ -1,59 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <title>Document</title>
     <link href="../static/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../static/css/my.css" rel="stylesheet" />
   </head>
-  <body>
-    <nav
-      class="navbar navbar-expand-md fixed-top border-bottom border-2 border-dark"
-      style="background-color: rgb(237, 239, 239)"
-    >
-      <div class="container-fluid">
-        <a href="./base.html"
-          ><img src="../static/img/Logo.png" alt="Logo" width="180" height="30"
-        /></a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarCollapse"
-          aria-controls="navbarCollapse"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <a
-            class="navbar-nav mb-2 mb-md-0 me-2 ms-1 nav-link active"
-            aria-current="page"
-            href="./base.html"
-            >About</a
-          >
-          <form class="d-flex w-75 ms-2 me-2" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search..."
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
-          <a
-            class="btn btn-outline-warning ms-2"
-            style="width: 10%"
-            href="./ask.html"
-            role="button"
-          >
-            ASK!
-          </a>
+
+  <body class="d-flex flex-column h-100 background-photo">
+
+    <header style="margin-bottom: 75px;">
+
+      <!-- Creating navbar -->
+      <nav
+        class="navbar navbar-expand-md fixed-top border-bottom border-2 border-dark"
+        style="background-color: rgb(237, 239, 239)"
+      >
+        <div class="container-fluid">
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+
+            <a href="./base.html"><img src="../static/img/Logo.png" alt="Logo" width="150" height="30"/></a>
+            <a class="navbar-nav mb-2 mb-md-0 me-2 ms-2 nav-link active" aria-current="page" href="./base.html">About</a>
+            <form class="d-flex w-75 ms-2 me-2" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"/>
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <a class="btn btn-outline-warning ms-2 me-2" style="width: 10%" href="./ask.html" role="button">ASK!</a>
+
+            <div class="d-flex align-items-center justify-content-center ms-3" style="gap: 5%">
+
+              <img class="rounded-circle" src="../static/img/cat.png" alt="UserProfilPic" width="50" height="50"/>
+
+              <div class="d-flex flex-column align-items-center" style="gap: 3px">
+
+                <p class="align-items-center" style="margin-bottom: 0"><u>User2485436</u></p>
+
+                <div class="d-flex justify-content-center">
+
+                  <a class="btn btn-sm btn-secondary ms-1 me-1" href="./settings.html" role="button">Settings</a>
+                  <a class="btn btn-sm btn-secondary ms-1 me-1" href="./base.html" role="button">LogOut</a>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
         </div>
-      </div>
-    </nav>
-    <script src="/static/js/bootstrap.js"></script>
+
+      </nav>
+      <!-- End of navbar -->
+
+    </header>
+
+    <main class="main-content flex-shrink-0">
+        <div class="container-fluid mt-5">
+          <div class="row justify-content-center">
+  
+            <div class="col-4 col-md-4">
+              <div class="rounded-pill bg-info bg-opacity-75 border border-dark p-1 text-center">
+                <h2>Rectangle 1</h2>
+                <p>This is some information about Rectangle 1.</p>
+              </div>
+            </div>
+  
+            <div class="col-4 col-md-4">
+              <div class="rounded-pill bg-info bg-opacity-75 border border-dark p-3 text-center">
+                <h2>Rectangle 2</h2>
+                <p>This is some information about Rectangle 2.</p>
+              </div>
+            </div>
+  
+            <div class="col-4 col-md-4">
+              <div class="d-flex flex-column h-100">
+                <div class="rounded-pill bg-info bg-opacity-75 border border-dark p-3 text-center mb-4">
+                  <h2>Rectangle 3</h2>
+                  <p>This is some information about Rectangle 3.</p>
+                </div>
+                <div class="rounded-pill bg-info bg-opacity-75 border border-dark p-3 text-center">
+                  <h2>Rectangle 4</h2>
+                  <p>This is some information about Rectangle 4.</p>
+                </div>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+    </main>
+
   </body>
+
+  <script src="/static/js/bootstrap.js"></script>
+
 </html>
