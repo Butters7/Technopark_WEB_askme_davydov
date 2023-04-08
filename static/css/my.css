@@ -1,5 +1,14 @@
+@font-face {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    src: url('../fonts/impact.ttf');
+}
+
 .main-content {
     padding-top: 75px;
+}
+
+.impact-font {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .background-photo {
