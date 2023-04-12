@@ -11,7 +11,9 @@
 
 <div class="row question-big mb-3"></div>
 
-{% include 'inc/question_answer.html' %}
+{% for answer in answers %}
+    {% include 'inc/question_answer.html' %}
+{% endfor %}
 
 <nav class="row" aria-label="...">
     <ul class="pagination">

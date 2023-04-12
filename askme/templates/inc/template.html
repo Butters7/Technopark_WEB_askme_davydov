@@ -46,31 +46,18 @@
                 <div class="col-4">
                     <div class="bg-info border border-dark border-3 p-3 text-center mb-4" style="min-height: fit-content; min-width: fit-content; border-radius: 60px; opacity: 92%;">
                         <h1 class="impact-font">Popular Tags</h2>
-                        <div class="row justify-content-center me-1">
-                            <div class="col-md-4 col-sm-12">
-                                <a class="text-decoration-none" href="{% url 'tag' %}"><p style="font-weight: bolder; font-size: 150%; color: magenta;">python</p></a>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <a class="text-decoration-none" href="{% url 'tag' %}"><p class="text-success" style="font-weight: bolder; font-size: 150%;">Technopark</p></a>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center ms-1">
-                            <div class="col-md-4 col-sm-12">
-                                <a class="text-decoration-none" href="{% url 'tag' %}"><p style="font-weight: bolder; font-size: 150%;">MySql</p></a>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <a class="text-decoration-none" href="{% url 'tag' %}"><p class="text-warning" style="font-weight: bolder; font-size: 150%;">Blender</p></a>
-                            </div>
-                        </div>
+                        <div class="row justify-content-center">
+                            {% for tag in tags %}
+                              {% include 'inc/question_tags.html' %}
+                            {% endfor %}
+                          </div>
                     </div>
                     <div class="bg-info border border-dark border-3 p-3 text-center mt-4" style="min-height: fit-content; min-width: fit-content; border-radius: 60px; opacity: 92%;">
                         <h1 class="impact-font">Best members</h2>
                         <ol class="list-group-numbered text-center me-4">
-                            <li class="list-group-item" style="font-size: 200%;">Egor</li>
-                            <li class="list-group-item" style="font-size: 200%;">Mr. Freeman</li>
-                            <li class="list-group-item" style="font-size: 200%;">Guest042524125</li>
-                            <li class="list-group-item" style="font-size: 200%;">Dean Winchester</li>
-                            <li class="list-group-item" style="font-size: 200%;">Elliot Andersen</li>
+                            {% for member in bm %}
+                              {% include 'inc/question_best_members.html' %}
+                            {% endfor %}
                         </ol>
                     </div>
                 </div>

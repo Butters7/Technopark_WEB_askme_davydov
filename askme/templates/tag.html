@@ -1,19 +1,24 @@
 {% extends 'inc/template.html' %}
-{% load static %}
 
 {% block body %}
 <body class="d-flex flex-column h-100 background-questions">
 {% endblock body %}
 
 {% block content %}
+<div class="row mb-1">
+    <div class="col-5">
+        <h1>New Questions</h1>
+    </div>
+    <div class="col-3">
+        <h2 class="mt-1"><a class="btn btn-danger" href="#">Hot Questions</a></h2>
+    </div>
+</div>
 
-{% include 'inc/question_main.html' %}
+{% for question in questions %}
+    {% include 'inc/question_item.html' %}
+{% endfor %}
 
-<div class="row question-big mb-3"></div>
-
-{% include 'inc/question_answer.html' %}
-
-<nav class="row" aria-label="...">
+<nav aria-label="...">
     <ul class="pagination">
         <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Previous</a></li>
         <li class="page-item"><a class="page-link" href="#">1 (current)</a></li>
@@ -22,20 +27,4 @@
         <li class="page-item"><a class="page-link" href="#">Next</a></li>
     </ul>
 </nav>
-
-<div class="row question-big mb-3"></div>
-
-<form>
-    <div class="row form-group mb-2">
-        <textarea class="form-control" id="description" rows="6" maxlength="500" placeholder="Enter answer..." style="resize: none;"></textarea>
-    </div>
-    <div class="form-group row mt-2 mb-3">
-        <button type="submit" class="btn btn-warning">SUBMIT!</button>
-    </div>
-    <div class="form-group row question-add text-center">
-        <div class="alert alert-danger d-none" id="error-message">
-            The fill is empty
-        </div>
-    </div>
-</form>
 {% endblock content %}
