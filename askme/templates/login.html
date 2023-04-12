@@ -1,129 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>QBlender - site for blender developers</title>
-    <link rel="icon" href="../static/img/Blender.png" type="image/x-icon">
-    <link href="../static/css/bootstrap.css" rel="stylesheet" />
-    <link href="../static/css/my.css" rel="stylesheet" /> 
-</head>
+{% extends 'inc/template.html' %}
 
+{% block body %}
 <body class="d-flex flex-column h-100 background-questions">
-    
-    <header style="height: 55px;">
-        <!-- Creating navbar -->
-        <nav class="navbar navbar-expand-md fixed-top border-bottom border-2 border-dark" style="height: 75px; background-color: rgb(237, 239, 239)">
-          <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-              <a href="./base.html"><img src="../static/img/Logo.png" alt="Logo" width="150" height="30"/></a>
-              <a class="navbar-nav mb-2 mb-md-0 me-2 ms-2 nav-link active" aria-current="page" href="./base.html">About</a>
-              <form class="d-flex w-75 ms-2 me-2" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"/>
-                <button class="btn btn-outline-success text-dark" type="submit">Search</button>
-              </form>
-              <!-- <a class="btn btn-outline-warning ms-2 me-2 text-dark" style="width: 10%" href="./ask.html" role="button">ASK!</a>
-              <div class="d-flex flex-column align-items-center" style="gap: 3px">
-                <p class="align-items-center" style="margin-bottom: 0"><u>User2485436</u></p>
-                <div class="d-flex justify-content-center">
-                  <a class="btn btn-sm btn-secondary ms-1 me-1" href="./settings.html" role="button">Settings</a>
-                  <a class="btn btn-sm btn-secondary ms-1 me-1" href="./base.html" role="button">LogOut</a>
-                </div>
-              </div> -->
-              <div class="d-flex align-items-center justify-content-center ms-3" style="gap: 5%">
-                <a class="btn btn-outline-primary" href="./login.html" role="button">Login</a>
-                <a class="btn btn-primary" href="./signup.html" role="button">SignUp</a>
-              </div>
-            </div>
-          </div>
-        </nav>
-        <!-- End of navbar -->
-      </header>
+{% endblock body %}
 
-      <main>
-        <div class="container mb-5">
-            <h1>Login</h1>
-            <div class="row mt-4">
-                <div class="col-8">
-                    <form>
-                        <div class="form-group row mb-2">
-                            <label for="title" class="col-2 col-form-label">Login</label>
-                            <div class="col-5">
-                                <input type="text" class="form-control" id="login" maxlength="100" placeholder="Enter a login">
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <label for="description" class="col-2 col-form-label">Password</label>
-                            <div class="col-5">
-                                <textarea class="form-control" id="password" maxlength="100" placeholder="Enter a password" style="resize: none;"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <div class="col-10 offset-sm-2">
-                                <button type="submit" class="btn btn-warning">Log In</button>
-                            </div>
-                        </div>
-                        <div class="form-group row mb-2">
-                            <div class="col-5 offset-sm-2">
-                                <div class="alert alert-danger d-none" id="error-message">
-                                    Wrong login or password!
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="row">
-                        <div class="col-2"></div>
-                        <div class="col-10">
-                            <span>Don't have an account? <a href="./signup.html">Register!</a></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-
-                    <div class="bg-info border border-dark border-3 p-3 text-center mb-4" style="min-height: fit-content; min-width: fit-content; border-radius: 60px; opacity: 92%;">
-                        <h1 class="impact-font">Popular Tags</h2>
-                        <div class="row justify-content-center me-1">
-                            <div class="col-md-4 col-sm-12">
-                                <a class="text-decoration-none" href="#"><p style="font-weight: bolder; font-size: 150%; color: magenta;">python</p></a>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <a class="text-decoration-none" href="#"><p class="text-success" style="font-weight: bolder; font-size: 150%;">Technopark</p></a>
-                            </div>
-                        </div>
-                        <div class="row justify-content-center ms-1">
-                            <div class="col-md-4 col-sm-12">
-                                <a class="text-decoration-none" href="#"><p style="font-weight: bolder; font-size: 150%;">MySql</p></a>
-                            </div>
-                            <div class="col-md-4 col-sm-12">
-                                <a class="text-decoration-none" href="#"><p class="text-warning" style="font-weight: bolder; font-size: 150%;">Blender</p></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-info border border-dark border-3 p-3 text-center mt-4" style="min-height: fit-content; min-width: fit-content; border-radius: 60px; opacity: 92%;">
-                        <h1 class="impact-font">Best members</h2>
-                        <ol class="list-group-numbered text-center me-4">
-                            <li class="list-group-item" style="font-size: 200%;">Egor</li>
-                            <li class="list-group-item" style="font-size: 200%;">Mr. Freeman</li>
-                            <li class="list-group-item" style="font-size: 200%;">Guest042524125</li>
-                            <li class="list-group-item" style="font-size: 200%;">Dean Winchester</li>
-                            <li class="list-group-item" style="font-size: 200%;">Elliot Andersen</li>
-                        </ol>
-                    </div>
-
-                </div>
+{% block content %}
+<form>
+    <div class="form-group row mb-2">
+        <label for="title" class="col-2 col-form-label">Login</label>
+        <div class="col-5">
+            <input type="text" class="form-control" id="login" maxlength="100" placeholder="Enter a login">
+        </div>
+    </div>
+    <div class="form-group row mb-2">
+        <label for="description" class="col-2 col-form-label">Password</label>
+        <div class="col-5">
+            <textarea class="form-control" id="password" maxlength="100" placeholder="Enter a password" style="resize: none;"></textarea>
+        </div>
+    </div>
+    <div class="form-group row mb-2">
+        <div class="col-10 offset-sm-2">
+            <button type="submit" class="btn btn-warning">Log In</button>
+        </div>
+    </div>
+    <div class="form-group row mb-2">
+        <div class="col-5 offset-sm-2">
+            <div class="alert alert-danger d-none" id="error-message">
+                Wrong login or password!
             </div>
         </div>
-      </main>
-
-      <footer class="footer fixed-down py-1 bg-body-tertiary border-top border-2 border-dark" style="background-color: rgb(172, 170, 170); text-align:center; font-weight:bold; position: fixed; bottom: 0; width: 100%;">
-        <div class="container">
-          <span class="text-body-secondary">WEB Project <a href="https://github.com/Butters7/Technopark_WEB_askme_davydov" target="_blank">"Answer'N'Questions"</a></span>
-        </div>
-      </footer>  
-    
-      <script src="/static/js/bootstrap.js"></script>
-
-</body>
-</html>
+    </div>
+</form>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-10">
+        <span>Don't have an account? <a href="{% url 'signup' %}">Register!</a></span>
+    </div>
+</div>
+{% endblock content %}

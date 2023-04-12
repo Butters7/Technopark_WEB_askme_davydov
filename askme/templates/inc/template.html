@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <title>QBlender - site for blender developers</title>
+        <link rel="shortcut icon" type="image/png" href="{% static 'img/blender.ico' %}" />
+        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/my.css' %}" rel="stylesheet" />
+    </head>
+
+{% block body %}{% endblock body %}
+    <header style="height: 55px;">
+        <nav class="navbar navbar-expand-md fixed-top border-bottom border-2 border-dark" style="height: 75px; background-color: rgb(237, 239, 239)">
+          <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <a href="{% url 'base' %}"><img src="{% static 'img/Logo.png' %}" alt="Logo" width="150" height="30"/></a>
+              <a class="navbar-nav mb-2 mb-md-0 me-2 ms-2 nav-link active" aria-current="page" href="{% url 'base' %}">About</a>
+              <form class="d-flex w-75 ms-2 me-2" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"/>
+                <button class="btn btn-outline-success text-dark" type="submit">Search</button>
+              </form>
+              <div class="d-flex align-items-center justify-content-center ms-3" style="gap: 5%">
+                <a class="btn btn-outline-primary" href="{% url 'login' %}" role="button">Login</a>
+                <a class="btn btn-primary" href="{% url 'signup' %}" role="button">SignUp</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+
+      <main>
+        <div class="container">
+            <div class="row mt-1">
+                <div class="col-8">
+
+                    {% block content %}{% endblock content %}
+
+                </div>
+                
+                <div class="col-4">
+                    <div class="bg-info border border-dark border-3 p-3 text-center mb-4" style="min-height: fit-content; min-width: fit-content; border-radius: 60px; opacity: 92%;">
+                        <h1 class="impact-font">Popular Tags</h2>
+                        <div class="row justify-content-center me-1">
+                            <div class="col-md-4 col-sm-12">
+                                <a class="text-decoration-none" href="{% url 'tag' %}"><p style="font-weight: bolder; font-size: 150%; color: magenta;">python</p></a>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <a class="text-decoration-none" href="{% url 'tag' %}"><p class="text-success" style="font-weight: bolder; font-size: 150%;">Technopark</p></a>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center ms-1">
+                            <div class="col-md-4 col-sm-12">
+                                <a class="text-decoration-none" href="{% url 'tag' %}"><p style="font-weight: bolder; font-size: 150%;">MySql</p></a>
+                            </div>
+                            <div class="col-md-4 col-sm-12">
+                                <a class="text-decoration-none" href="{% url 'tag' %}"><p class="text-warning" style="font-weight: bolder; font-size: 150%;">Blender</p></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-info border border-dark border-3 p-3 text-center mt-4" style="min-height: fit-content; min-width: fit-content; border-radius: 60px; opacity: 92%;">
+                        <h1 class="impact-font">Best members</h2>
+                        <ol class="list-group-numbered text-center me-4">
+                            <li class="list-group-item" style="font-size: 200%;">Egor</li>
+                            <li class="list-group-item" style="font-size: 200%;">Mr. Freeman</li>
+                            <li class="list-group-item" style="font-size: 200%;">Guest042524125</li>
+                            <li class="list-group-item" style="font-size: 200%;">Dean Winchester</li>
+                            <li class="list-group-item" style="font-size: 200%;">Elliot Andersen</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </main>
+
+      <footer class="footer fixed-down py-1 bg-body-tertiary border-top border-2 border-dark" style="background-color: rgb(172, 170, 170); text-align:center; font-weight:bold; position: fixed; bottom: 0; width: 100%;">
+        <div class="container">
+          <span class="text-body-secondary">WEB Project <a href="https://github.com/Butters7/Technopark_WEB_askme_davydov" target="_blank">"Answer'N'Questions"</a></span>
+        </div>
+      </footer>  
+    
+      <script src="/static/js/bootstrap.js"></script>
+    
+</body>
+</html>

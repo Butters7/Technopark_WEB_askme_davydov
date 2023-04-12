@@ -1,0 +1,40 @@
+{% load static %}
+
+<div class="row question-big mb-3">
+    <div class="col-3">
+        <div class="question-avatar-big">
+            <img class="question-avatar-photo-big" src="{% static 'img/cat.png' %}" alt="user-avatar">
+        </div>
+        <div class="mt-2" style="text-align: center;">
+            <u>User325252</u>
+        </div>
+        <div class="like-counter-big">
+            <button type="button" class="btn btn-sm btn-primary">
+                Like: <span class="badge badge-light">100</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="question-name">
+            <h3><a class="text-decoration-none" style="color: rgb(137, 72, 10);" href="#">{{ question.title }}</a></h3>
+        </div>
+        <div class="question-data mb-3">
+            <span>{{ question.text }}</span>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <div class="row">
+                    <div class="col-5">
+                        <b>Answers: </b>
+                    </div>
+                    <div class="col-7">
+                        <p>4500</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <b>Tags: </b> <a class="text-decoration-none" href="#">blender</a>, <a class="text-decoration-none" href="#">mr.robot</a>, <a class="text-decoration-none" href="#">subdiv</a>, <a class="text-decoration-none" href="#">office</a>
+            </div>
+        </div>
+    </div>
+</div>
