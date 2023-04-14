@@ -10,12 +10,12 @@
         <h1>New Questions: tags={{ tag }}</h1>
     </div>
     <div class="col-3">
-        <h2 class="mt-1"><a class="btn btn-danger" href="#">Hot Questions</a></h2>
+        <h2 class="mt-1"><a class="btn btn-danger" href="{% url 'hot' %}">Hot Questions</a></h2>
     </div>
 </div>
 
 {% for question in questions %}
-    {% include 'inc/question_item.html' %}
+    {% include 'inc/question_tags.html' %}
 {% endfor %}
 
 <nav aria-label="...">

@@ -21,6 +21,7 @@ from app import views
 urlpatterns = [
     path('ask', views.ask, name="ask"),
     path('base', views.base, name="base"),
+    path('hot', views.hot, name='hot'),
     path('', views.index, name="index"),
     path('login', views.login, name="login"),
     path('question/<int:question_id>/', views.question, name="question"),

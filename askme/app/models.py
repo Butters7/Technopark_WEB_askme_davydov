@@ -2,18 +2,21 @@ QUESTIONS = [
     {
         'id': i,
         'user_name': f'user {i}',
+        'answers': i + 100,
+        'count_of_likes': i + 200,
         'title': f'Question {i}',
         'text': f'Text {i}',
-    } for i in range(3)
+    } for i in range(10)
 ]
 
 
 ANSWERS = [
     {
         'id': i,
+        'useful': i + 1,
         'user_name': f'user {i}',
         'text': f'blablabla {i}',
-    } for i in range(3)
+    } for i in range(8)
 ]
 
 
@@ -30,4 +33,16 @@ TAGS = [
     {'tag_name': 'technopark', 'id': 1, 'color': 'green'},
     {'tag_name': 'mySQL', 'id': 2, 'color': 'blue'},
     {'tag_name': 'blender', 'id': 3, 'color': 'red'},
+]
+
+
+HOT = [
+    {
+    'id': i,
+    'user_name': f'user {i}',
+    'answers': i + 100,
+    'count_of_likes': i + 200,
+    'title': f'Question {i}',
+    'text': f'Text {i}',
+    } for i in range(9, 0, -1)
 ]

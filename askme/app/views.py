@@ -48,5 +48,9 @@ def tag(request, tag_name):
     if tag is None:
         raise Http404(f"Tag {tag_name} not found")
 
-    context = {'tags': models.TAGS, 'bm': models.BEST_MEMBERS, 'tag': tag_name}
+    context = {'questions': models.QUESTIONS, 'tags': models.TAGS, 'bm': models.BEST_MEMBERS, 'tag': tag_name}
     return render(request, 'tag.html', context)
+
+def hot(request):
+    context = {'questions': models.QUESTIONS, 'tags': models.TAGS, 'bm': models.BEST_MEMBERS, 'hots': models.HOT}
+    return render(request, 'hot.html', context)

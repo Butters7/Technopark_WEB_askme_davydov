@@ -1,0 +1,44 @@
+{% load static %}
+
+<div class="question">
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <div class="question-avatar">
+                    <img class="question-avatar-photo" src="{% static 'img/cat.png' %}" alt="user-avatar">
+                </div>
+                <div class="mt-2" style="text-align: center;">
+                    <u>{% block user_name %}{% endblock user_name %}</u>
+                </div>
+                <div class="like-counter">
+                    <button type="button" class="btn btn-sm btn-primary">
+                        Rating: <span class="badge badge-light">{% block count_of_likes %}{% endblock count_of_likes %}</span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-10">
+                <div class="question-name">
+                    <h3><a class="text-decoration-none" style="color: rgb(137, 72, 10);" href="{% block id %}{% endblock id %}">{% block title %}{% endblock title %}</a></h3>
+                </div>
+                <div class="question-data">
+                    <p>{% block text %}{% endblock text %}</p>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="row">
+                            <div class="col-5">
+                                <b>Answers: </b>
+                            </div>
+                            <div class="col-7">
+                                <p>{% block answers %}{% endblock answers %}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <b>Tags: </b> <a class="text-decoration-none" href="{% url 'tag' 'python' %}">python</a>, <a class="text-decoration-none" href="{% url 'tag' 'technopark' %}">technopark</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

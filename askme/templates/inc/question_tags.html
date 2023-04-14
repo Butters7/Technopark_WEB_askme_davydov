@@ -1,3 +1,25 @@
-<div class="col-6">
-    <a class="text-decoration-none" href="{% url 'tag' tag.tag_name %}"><p style="font-weight: bolder; font-size: 150%; color: {{tag.color}}">{{ tag.tag_name }}</p></a>
-</div>
+{% extends 'inc/question_template.html' %}
+
+{% block user_name %}
+    {{ question.user_name }}
+{% endblock user_name %}
+
+{% block count_of_likes %}
+    {{ question.count_of_likes }}
+{% endblock count_of_likes %}
+
+{% block id %}
+    {% url 'question' question.id %}
+{% endblock id %}
+
+{% block title %}
+    {{ question.title }}
+{% endblock title %}
+
+{% block text %}
+    {{ question.text }}
+{% endblock text %}
+
+{% block answers %}
+    {{ question.answers }}
+{% endblock answers %}
