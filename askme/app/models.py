@@ -6,6 +6,7 @@ QUESTIONS = [
         'count_of_likes': i + 200,
         'title': f'Question {i}',
         'text': f'Text {i}',
+        'tag': 'python',
     } for i in range(10)
 ]
 
@@ -44,5 +45,6 @@ HOT = [
     'count_of_likes': i + 200,
     'title': f'Question {i}',
     'text': f'Text {i}',
+    'tag': 'python',
     } for i in range(9, 0, -1)
 ]
