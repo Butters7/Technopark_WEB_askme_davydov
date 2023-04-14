@@ -14,8 +14,8 @@
     </div>
 </div>
 
-{% for question in questions %}
-    {% include 'inc/question_item.html' %}
+{% for question in page_obj %}
+    {% include 'inc/question_item.html' with question=question %}
 {% endfor %}
 
 {% include 'inc/pagination.html' %}

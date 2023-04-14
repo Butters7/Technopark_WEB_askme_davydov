@@ -1,5 +1,6 @@
+from django.core.paginator import Paginator
 from . import models
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import Http404
 
 # Create your views here.
@@ -14,7 +15,12 @@ def base(request):
 
 
 def index(request):
-    context = {'questions': models.QUESTIONS, 'tags': models.TAGS, 'bm': models.BEST_MEMBERS}
+    question_list = models.QUESTIONS
+    paginator = Paginator(question_list, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'page_obj': page_obj, 'tags': models.TAGS, 'bm': models.BEST_MEMBERS}
     return render(request, 'index.html', context)
 
 
@@ -28,8 +34,13 @@ def question(request, question_id):
         question = models.QUESTIONS[question_id]
     except IndexError:
         raise Http404(f"Question with ID {question_id} not found")
+    
+    answer_list = models.ANSWERS
+    paginator = Paginator(answer_list, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    context = {'question': question, 'answers': models.ANSWERS, 'tags': models.TAGS, 'bm': models.BEST_MEMBERS}
+    context = {'question': question, 'page_obj': page_obj, 'tags': models.TAGS, 'bm': models.BEST_MEMBERS}
     return render(request, 'question.html', context)
 
 
@@ -47,10 +58,20 @@ def tag(request, tag_name):
 
     if tag is None:
         raise Http404(f"Tag {tag_name} not found")
+    
+    tag_list = models.QUESTIONS
+    paginator = Paginator(tag_list, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    context = {'questions': models.QUESTIONS, 'tags': models.TAGS, 'bm': models.BEST_MEMBERS, 'tag': tag_name}
+    context = {'page_obj': page_obj, 'tags': models.TAGS, 'bm': models.BEST_MEMBERS, 'tag': tag_name}
     return render(request, 'tag.html', context)
 
 def hot(request):
-    context = {'questions': models.QUESTIONS, 'tags': models.TAGS, 'bm': models.BEST_MEMBERS, 'hots': models.HOT}
+    hot_list = models.HOT
+    paginator = Paginator(hot_list, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {'page_obj': page_obj, 'tags': models.TAGS, 'bm': models.BEST_MEMBERS}
     return render(request, 'hot.html', context)

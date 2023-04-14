@@ -11,8 +11,8 @@
 
 <div class="row question-big mb-3"></div>
 
-{% for answer in answers %}
-    {% include 'inc/question_answer.html' %}
+{% for answer in page_obj %}
+    {% include 'inc/question_answer.html' with answer=answer %}
 {% endfor %}
 
 {% include 'inc/pagination.html' %}

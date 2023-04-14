@@ -7,7 +7,7 @@ QUESTIONS = [
         'title': f'Question {i}',
         'text': f'Text {i}',
         'tag': 'python',
-    } for i in range(10)
+    } for i in range(100)
 ]
 
 

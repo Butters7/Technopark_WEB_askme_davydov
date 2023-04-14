@@ -11,8 +11,8 @@
     </div>
 </div>
 
-{% for hot in hots %}
-    {% include 'inc/question_hot.html' %}
+{% for hot in page_obj %}
+    {% include 'inc/question_hot.html' with hot=hot %}
 {% endfor %}
 
 {% include 'inc/pagination.html' %}
