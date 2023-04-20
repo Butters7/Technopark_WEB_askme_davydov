@@ -1,5 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
+
+
+def createPaginator(models, request):
+    list_obj = models
+    paginator = Paginator(list_obj, 3)
+    page_number = request.GET.get('page')
+    
+    if not page_number:
+        page_number = 1
+
+        
+    if int(page_number) > paginator.num_pages:
+        page_number = paginator.num_pages
+
+    page_obj = paginator.get_page(page_number)
+
+
+    return page_obj
+    
+
+
+def get_context(page_obj=None, tags = None, best_members = None):
+    return {'page_obj': page_obj, 'tags': tags, 'best_members': best_members }
 
 
 class ModelManager(models.Manager):
