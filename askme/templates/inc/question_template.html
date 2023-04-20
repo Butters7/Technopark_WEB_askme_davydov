@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="col-8">
-                        <b>Tags: </b> <a class="text-decoration-none" href="{% url 'tag' 'python' %}">{% block tag %}{% endblock tag %}</a>
+                        {% block tags %}{% endblock tags %}
                     </div>
                 </div>
             </div>

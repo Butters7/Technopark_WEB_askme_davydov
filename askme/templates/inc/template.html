@@ -48,15 +48,17 @@
                         <h1 class="impact-font">Popular Tags</h2>
                         <div class="row justify-content-center">
                             {% for tag in tags %}
-                              {% include 'inc/popular_tags.html' %}
+                              <div class="col-6">
+                                <a class="text-decoration-none" href="{% url 'tag' tag.name %}"><p style="font-weight: bolder; font-size: 150%; color:rgb(242, 82, 13);">{{ tag.name }}</p></a>
+                            </div>
                             {% endfor %}
                           </div>
                     </div>
                     <div class="bg-info border border-dark border-3 p-3 text-center mt-4" style="min-height: fit-content; min-width: fit-content; border-radius: 60px; opacity: 92%;">
                         <h1 class="impact-font">Best members</h2>
                         <ol class="list-group-numbered text-center me-4">
-                            {% for member in bm %}
-                              {% include 'inc/best_members.html' %}
+                            {% for member in best_members %}
+                              <li class="list-group-item" style="font-size: 200%;">{{ member.profile.username }}</li>
                             {% endfor %}
                         </ol>
                     </div>

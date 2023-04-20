@@ -6,13 +6,16 @@
 
 {% block content %}
 <div class="row mb-1">
-    <div class="col-5">
+    <div class="col-6">
         <h1 style="color: rgb(244, 16, 16);">Hot Questions</h1>
+    </div>
+    <div class="col-6">
+        <h2 class="mt-1"><a class="btn btn-success" href="{% url 'index' %}">New questions</a></h2>
     </div>
 </div>
 
-{% for hot in page_obj %}
-    {% include 'inc/question_hot.html' with hot=hot %}
+{% for question in page_obj %}
+    {% include 'inc/question_item.html' with question=question %}
 {% endfor %}
 
 {% include 'inc/pagination.html' %}

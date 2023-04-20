@@ -6,17 +6,17 @@
             <img class="question-avatar-photo-big" src="{% static 'img/cat.png' %}" alt="user-avatar">
         </div>
         <div class="mt-2" style="text-align: center;">
-            <u>{{ question.user_name }}</u>
+            <u>{{ question.user_profile.profile.username }}</u>
         </div>
         <div class="like-counter-big">
             <button type="button" class="btn btn-sm btn-primary">
-                Rating: <span class="badge badge-light">{{ question.count_of_likes }}</span>
+                Rating: <span class="badge badge-light">{{ question.likes.count }}</span>
             </button>
         </div>
     </div>
     <div class="col-9">
         <div class="question-name">
-            <h3><p class="text-decoration-none" style="color: rgb(137, 72, 10);">{{ question.title }}</p></h3>
+            <h3><p class="text-decoration-none" style="color: rgb(137, 72, 10);">{{ question.name }}</p></h3>
         </div>
         <div class="question-data mb-3">
             <span>{{ question.text }}</span>
@@ -24,16 +24,19 @@
         <div class="row">
             <div class="col-3">
                 <div class="row">
-                    <div class="col-5">
+                    <div class="col-6">
                         <b>Answers: </b>
                     </div>
-                    <div class="col-7">
-                        <p>{{ question.answers }}</p>
+                    <div class="col-6">
+                        <p>{{ question.answer_set.count }}</p>
                     </div>
                 </div>
             </div>
             <div class="col-8">
-                <b>Tags: </b> <a class="text-decoration-none" href="{% url 'tag' 'python' %}">{{ question.tag }}</a>
+                <b>Tags: </b>
+                {% for tag in question.tags.all %}
+                    <a class="text-decoration-none me-1" href="{% url 'tag' tag.name %}">{{ tag.name }}</a>
+                {% endfor %}
             </div>
         </div>
     </div>

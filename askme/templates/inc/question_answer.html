@@ -6,11 +6,11 @@
             <img class="question-avatar-photo-comment" src="{% static 'img/User.png' %}" alt="user-avatar">
         </div>
         <div class="mt-2" style="text-align: center;">
-            <u>{{ answer.user_name }}</u>
+            <u>{{ answer.user_profile.profile.username }}</u>
         </div>
         <div class="like-counter-big">
             <button type="button" class="btn btn-sm btn-primary">
-                Rating: <span class="badge badge-light">{{ answer.useful }}</span>
+                Rating: <span class="badge badge-light">{{ answer.likes.count }}</span>
             </button>
         </div>
     </div>
@@ -19,7 +19,7 @@
             <span>{{ answer.text }}</span>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+            <input class="form-check-input" type="checkbox" id="{{ answer.id }}" {% if answer.correct %}checked{% endif %}>
             <label class="form-check-label" for="defaultCheck1">
               Correct
             </label>

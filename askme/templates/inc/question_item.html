@@ -1,11 +1,11 @@
 {% extends 'inc/question_template.html' %}
 
 {% block user_name %}
-    {{ question.user_name }}
+    {{ question.user_profile.profile.username }}
 {% endblock user_name %}
 
 {% block count_of_likes %}
-    {{ question.count_of_likes }}
+    {{ question.likes.count }}
 {% endblock count_of_likes %}
 
 {% block id %}
@@ -13,17 +13,20 @@
 {% endblock id %}
 
 {% block title %}
-    {{ question.title }}
+    {{ question.name }}
 {% endblock title %}
 
 {% block text %}
-    {{ question.text }}
+    {{ question.text|truncatechars:400|default:"..." }}
 {% endblock text %}
 
-{% block tag %}
-    {{ question.tag }}
-{% endblock tag %}
+{% block tags %}
+    <b>Tags: </b>
+    {% for tag in question.tags.all %}
+        <a class="text-decoration-none me-1" href="{% url 'tag' tag.name %}">{{ tag.name }}</a>
+    {% endfor %}
+{% endblock tags %}
 
 {% block answers %}
-    {{ question.answers }}
+    {{ question.answer_set.count }}
 {% endblock answers %}

@@ -6,16 +6,16 @@
 
 {% block content %}
 <div class="row mb-1">
-    <div class="col-9">
-        <h1>New Questions: tags={{ tag }}</h1>
+    <div class="col-6">
+        <h1>Tag = {{ tag_name }}</h1>
     </div>
-    <div class="col-3">
-        <h2 class="mt-1"><a class="btn btn-danger" href="{% url 'hot' %}">Hot Questions</a></h2>
+    <div class="col-6">
+        <h2 class="mt-1"><a class="btn btn-success" href="{% url 'index' %}">New questions</a></h2>
     </div>
 </div>
 
 {% for question in page_obj %}
-    {% include 'inc/question_tags.html' with question=question %}
+    {% include 'inc/question_item.html' with question=question %}
 {% endfor %}
 
 {% include 'inc/pagination.html' %}
