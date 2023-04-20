@@ -31,6 +31,10 @@ class ModelManager(models.Manager):
         return self.order_by('-id')
 
 
+    def get_popular_answers(self, question_id):
+        return self.get(pk=question_id).answer_set.annotate(num_likes=models.Count('likes')).order_by('-correct', '-num_likes')
+
+
     def get_hot_questions(self):
         return self.annotate(num_likes=models.Count('likes')).order_by('-num_likes')
     
@@ -44,7 +48,7 @@ class ModelManager(models.Manager):
     
 
     def get_five_best_members(self):
-        return self.annotate(total_likes=models.Count('liked_answers')).order_by('-total_likes')[:5]
+        return self.annotate(total_likes=models.Sum('liked_answers__likes')).order_by('-total_likes')[:5]
     
 
 class Profile(models.Model):

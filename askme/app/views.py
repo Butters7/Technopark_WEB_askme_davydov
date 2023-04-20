@@ -32,7 +32,7 @@ def question(request, question_id):
     if not models.Question.objects.filter(pk=question_id):
         raise Http404(f'Question_id {question_id} does not exist')
     
-    page_obj = models.createPaginator(models.Question.objects.get(pk=question_id).answer_set.all(), request)
+    page_obj = models.createPaginator(models.Question.objects.get_popular_answers(question_id), request)
     context = models.get_context(page_obj=page_obj, tags=models.Tag.objects.get_popular_tags(), best_members=models.Profile.objects.get_five_best_members())
     context['question'] = models.Question.objects.get(pk=question_id)
 
@@ -63,8 +63,7 @@ def tag(request, tag_name):
 
 
 def hot(request):
-    question_obj = models.Question.objects.get_hot_questions()
-    page_obj = models.createPaginator(question_obj, request)
+    page_obj = models.createPaginator(models.Question.objects.get_hot_questions(), request)
     context = models.get_context(page_obj=page_obj, tags=models.Tag.objects.get_popular_tags(), best_members=models.Profile.objects.get_five_best_members())
 
     return render(request, 'hot.html', context)

@@ -8,54 +8,55 @@ import random
 def fill_bd(ratio):
     faker = Faker('en_US')
 
-    # for i in range(ratio):
-    #     user = User.objects.create_user(username=f'user{i}')
-    #     user.set_password(f'django{i}')
-    #     user.save()
+    for i in range(ratio):
+        user = User.objects.create_user(username=f'user{i}')
+        user.set_password(f'django{i}')
+        user.save()
 
-    #     profile = Profile.objects.create(profile=user)
-
-    
-    # for i in range(ratio):
-    #     tag = Tag.objects.create(name=f'tag{i}')
-
-
-    # for i in range(33210, ratio * 10):
-    #     title = f'Question{i}'
-    #     text = faker.text(max_nb_chars=1000)
-    #     author = random.choice(Profile.objects.all())
-    #     tags = []
-
-    #     for i in range(3):
-    #         tag = random.choice(Tag.objects.all())
-    #         if tag not in tags:
-    #             tags.append(tag)
-
-    #     question = Question.objects.create(name=title, text=text, user_profile=author)
-    #     question.tags.set(tags)
-    #     question.save()
+        profile = Profile.objects.create(profile=user)
 
     
-    # for i in range(ratio * 10):
-    #     for question in Question.objects.all():
-    #         text = faker.text(max_nb_chars=1000)
-    #         responder = Profile.objects.order_by('?').first()
-    #         answer = Answer.objects.create(text=text, question=question, user_profile=responder)
+    for i in range(ratio):
+        tag = Tag.objects.create(name=f'tag{i}')
+
+
+    for i in range(ratio * 10):
+        title = f'Question{i}'
+        text = faker.text(max_nb_chars=1000)
+        author = random.choice(Profile.objects.all())
+        tags = []
+
+        for i in range(3):
+            tag = random.choice(Tag.objects.all())
+            if tag not in tags:
+                tags.append(tag)
+
+        question = Question.objects.create(name=title, text=text, user_profile=author)
+        question.tags.set(tags)
+        question.save()
 
     
-    # for i in range(ratio * 100):
-    #     question = Question.objects.all()[i % 100001]
-    #     user_profile = Profile.objects.all()[i % 10002]
+    for i in range(ratio * 10):
+        for question in Question.objects.all():
+            text = faker.text(max_nb_chars=1000)
+            responder = Profile.objects.order_by('?').first()
+            answer = Answer.objects.create(text=text, question=question, user_profile=responder)
 
-        # try:
-        #     like = LikedQuestions.objects.create(question=question, user_profile=user_profile)
-        # except ValueError:
-        #     pass
-        # except IntegrityError:
-        #     pass
+    
+    for i in range(ratio * 100):
+        question = Question.objects.all()[i % 100001]
+        user_profile = Profile.objects.all()[i % 10002]
 
-    for i in range(100000):
-        answer = Answer.objects.all()[i % 1479012]
+        try:
+            like = LikedQuestions.objects.create(question=question, user_profile=user_profile)
+        except ValueError:
+            pass
+        except IntegrityError:
+            pass
+
+
+    for i in range(ratio * 100):
+        answer = Answer.objects.all().reverse()[i % 1479012]
         user_profile = Profile.objects.all()[i % 10002]
 
         try:
