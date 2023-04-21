@@ -36,7 +36,7 @@ class ModelManager(models.Manager):
 
 
     def get_hot_questions(self):
-        return self.annotate(num_likes=models.Count('likes')).order_by('-num_likes')
+        return self.annotate(num_likes=models.Count('likes')).order_by('-num_likes', 'id')
     
 
     def get_question_with_special_tag(self, tag_name):
