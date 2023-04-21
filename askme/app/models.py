@@ -48,7 +48,7 @@ class ModelManager(models.Manager):
     
 
     def get_five_best_members(self):
-        return self.annotate(total_likes=models.Sum('liked_answers__likes')).order_by('-total_likes')[:5]
+        return self.annotate(num_answers=models.Count('answer')).order_by('-num_answers')[:5]
     
 
 class Profile(models.Model):
@@ -76,7 +76,7 @@ class Question(models.Model):
     likes = models.ManyToManyField(Profile, through='LikedQuestions', related_name='liked_questions', blank=True)
     user_profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag, related_name='questions')
-    objects = ModelManager()   
+    objects = ModelManager()
 
 
     def __str__(self): 
