@@ -5,14 +5,14 @@
         <div class="row">
             <div class="col-2">
                 <div class="question-avatar">
-                    <img class="question-avatar-photo" src="{% static 'img/cat.png' %}" alt="user-avatar">
+                    <img class="question-avatar-photo" src="{% block avatar %}{% endblock avatar %}" alt="user-avatar">
                 </div>
                 <div class="mt-2" style="text-align: center;">
                     <u>{% block user_name %}{% endblock user_name %}</u>
                 </div>
-                <div class="like-counter">
+                <div class="mt-2 like-counter">
                     <button type="button" class="btn btn-sm btn-primary">
-                        Rating: <span class="badge badge-light">{% block count_of_likes %}{% endblock count_of_likes %}</span>
+                        Like: <span class="badge badge-light">{% block count_of_likes %}{% endblock count_of_likes %}</span>
                     </button>
                 </div>
             </div>

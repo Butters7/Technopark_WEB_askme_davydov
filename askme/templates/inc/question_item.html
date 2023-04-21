@@ -1,5 +1,9 @@
 {% extends 'inc/question_template.html' %}
 
+{% block avatar %}
+    {{ question.user_profile.avatar.url }}
+{% endblock avatar %}
+
 {% block user_name %}
     {{ question.user_profile.profile.username }}
 {% endblock user_name %}

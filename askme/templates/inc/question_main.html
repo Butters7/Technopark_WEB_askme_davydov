@@ -3,14 +3,14 @@
 <div class="row question-big mb-3">
     <div class="col-3">
         <div class="question-avatar-big">
-            <img class="question-avatar-photo-big" src="{% static 'img/cat.png' %}" alt="user-avatar">
+            <img class="question-avatar-photo-big" src="{{ question.user_profile.avatar.url }}" alt="user-avatar">
         </div>
         <div class="mt-2" style="text-align: center;">
             <u>{{ question.user_profile.profile.username }}</u>
         </div>
-        <div class="like-counter-big">
+        <div class="mt-2 mb-1 like-counter-big">
             <button type="button" class="btn btn-sm btn-primary">
-                Rating: <span class="badge badge-light">{{ question.likes.count }}</span>
+                Like: <span class="badge badge-light">{{ question.likes.count }}</span>
             </button>
         </div>
     </div>
