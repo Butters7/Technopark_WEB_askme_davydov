@@ -1,0 +1,11 @@
+{% load static %}
+
+<a class="btn btn-outline-warning ms-2 me-2 text-dark" style="width: 10%" href="{% url 'ask' %}" role="button">ASK!</a>
+<img class="rounded-circle" src="{{ account.avatar.url }}" alt="UserProfilPic" width="50" height="50"/>
+<div class="d-flex flex-column align-items-center" style="gap: 3px">
+    <p class="align-items-center" style="margin-bottom: 0"><u>{{ account.profile.username }}</u></p>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-sm btn-secondary ms-1 me-1" href="{% url 'settings' %}" role="button">Settings</a>
+        <a class="btn btn-sm btn-secondary ms-1 me-1" href="{% url 'logout' %}" role="button">LogOut</a>
+    </div>
+</div>

@@ -25,10 +25,11 @@
                 <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"/>
                 <button class="btn btn-outline-success text-dark" type="submit">Search</button>
               </form>
-              <div class="d-flex align-items-center justify-content-center ms-3" style="gap: 5%">
-                <a class="btn btn-outline-primary" href="{% url 'login' %}" role="button">Login</a>
-                <a class="btn btn-primary" href="{% url 'signup' %}" role="button">SignUp</a>
-              </div>
+              {% if account %}
+                {% include 'inc/login_form.html' %}
+              {% else %}
+                {% include 'inc/unlogin_form.html' %}
+              {% endif %}
             </div>
           </div>
         </nav>
