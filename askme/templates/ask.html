@@ -1,39 +1,19 @@
 {% extends 'inc/template.html' %}
+{% load bootstrap5 %}
 
 {% block body %}
 <body class="d-flex flex-column h-100 background-questions">
 {% endblock body %}
 
 {% block content %}
-<form>
-    <div class="form-group row question-add">
-        <label for="title" class="col-2 col-form-label">Title<span class="text-danger">*</span></label>
-        <div class="col-10">
-            <input type="text" class="form-control" id="title" placeholder="Enter a title">
-        </div>
+<form novalidate action="{% url 'ask' %}" method="post">
+    {% csrf_token %}
+    <div class="col-12">
+        {% bootstrap_form form %}
     </div>
-    <div class="form-group row question-add">
-        <label for="description" class="col-2 col-form-label">Description<span class="text-danger">*</span></label>
-        <div class="col-10">
-            <textarea class="form-control" id="description" rows="10" maxlength="838" placeholder="Enter a description" style="resize: none;"></textarea>
-        </div>
-    </div>
-    <div class="form-group row question-add">
-        <label for="tags" class="col-2 col-form-label">Tags<span class="text-danger">*</span></label>
-        <div class="col-10">
-            <input type="text" class="form-control" id="tags" placeholder="Enter tags">
-        </div>
-    </div>
-    <div class="form-group row mt-3 question-add">
-        <div class="col-10 offset-sm-2">
+    <div class="mb-2">
+        <div class="col-12 mb-5">
             <button type="submit" class="btn btn-warning">ASK!</button>
-        </div>
-    </div>
-    <div class="form-group row question-add">
-        <div class="col-10 offset-sm-2">
-            <div class="alert alert-danger d-none" id="error-message">
-                Please fill in all required fields.
-            </div>
         </div>
     </div>
 </form>

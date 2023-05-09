@@ -1,65 +1,18 @@
 {% extends 'inc/template.html' %}
+{% load bootstrap5 %}
 
 {% block body %}
 <body class="d-flex flex-column h-100 background-questions">
 {% endblock body %}
 
 {% block content %}
-<form>
-    <div class="form-group row mb-2">
-        <label for="title" class="col-3 col-form-label">Login<span class="text-danger">*</span></label>
-        <div class="col-5">
-            <input type="text" class="form-control" id="login" maxlength="100" placeholder="Enter a login">
-            <div class="mt-1 alert alert-danger d-none" id="error-message">
-                Login already exists.
-            </div>
-        </div>
+<form novalidate action="{% url 'signup' %}" method="post">
+    {% csrf_token %}
+    <div class="col-5">
+        {% bootstrap_form form %}
     </div>
-    <div class="form-group row mb-2">
-        <label for="title" class="col-3 col-form-label">E-mail<span class="text-danger">*</span></label>
-        <div class="col-5">
-            <input type="text" class="form-control" id="login" maxlength="100" placeholder="Enter an e-mail">
-            <div class="mt-1 alert alert-danger d-none" id="error-message">
-                Login already exists.
-            </div>
-        </div>
-    </div>
-    <div class="form-group row mb-2">
-        <label for="title" class="col-3 col-form-label">Nickname<span class="text-danger">*</span></label>
-        <div class="col-5">
-            <input type="text" class="form-control" id="login" maxlength="100" placeholder="Enter a nickname">
-        </div>
-    </div>
-    <div class="form-group row mb-2">
-        <label for="description" class="col-3 col-form-label">Password<span class="text-danger">*</span></label>
-        <div class="col-5">
-            <input type="text" class="form-control" id="password" maxlength="100" placeholder="Enter a password"></input>
-            <div class="mt-1 alert alert-danger d-none" id="error-message">
-                Password should be at least 8 characters long.
-            </div>
-        </div>
-    </div>
-    <div class="form-group row mb-2">
-        <label for="description" class="col-3 col-form-label">Repeat password<span class="text-danger">*</span></label>
-        <div class="col-5">
-            <input type="text" class="form-control" id="password" maxlength="100" placeholder="Enter a password again"></input>
-            <div class="mt-1 alert alert-danger d-none" id="error-message">
-                Passwords do not match
-            </div>
-        </div>
-    </div>
-    <div class="form-group row mb-2">
-        <label for="photo" class="col-3 col-form-label">Upload Photo<span class="text-danger">*</span></label>
-        <div class="col-5">
-            <input type="file" id="photo" name="photo">
-            <div class="mt-1 alert alert-danger d-none" id="error-message">
-                The photo don't upload
-            </div>
-        </div>
-        </div>
-    <div class="form-group row mb-2">
-        <div class="col-1"></div>
-        <div class="col-9 offset-sm-2">
+    <div class="mb-2">
+        <div class="col-12 mb-5">
             <button type="submit" class="btn btn-warning">Register!</button>
         </div>
     </div>

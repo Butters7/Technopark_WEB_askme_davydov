@@ -10,8 +10,16 @@ from app import forms
 @login_required(login_url='/login')
 def ask(request):
     account = forms.checkAuth(request=request)
-    context = models.get_context(tags=models.Tag.objects.get_popular_tags(), best_members=models.Profile.objects.get_five_best_members())
-    context['account'] = account
+
+    if request.method == 'GET':
+        ask_form = forms.AskForm()
+    elif request.method == 'POST':
+        ask_form = forms.AskForm(request.POST)
+        if ask_form.is_valid():
+            question = ask_form.save(request)
+            return redirect(reverse('question', args=[question.id]))
+        
+    context = { 'tags' : models.Tag.objects.get_popular_tags(), 'best_members' : models.Profile.objects.get_five_best_members(), 'form' : ask_form, 'account' : account }
 
     return render(request, 'ask.html', context)
 
@@ -34,7 +42,6 @@ def index(request):
 
 
 def log_in(request):
-
     if request.method == 'GET':
         login_form = forms.LoginForm()
     elif request.method == 'POST':
@@ -77,16 +84,42 @@ def question(request, question_id):
         raise Http404(f'Question_id {question_id} does not exist')
     
     account = forms.checkAuth(request=request)
+    
+    if request.method == 'GET':
+        answer_form = forms.AnswerForm()
+    elif request.method == 'POST':
+        if not account:
+            return redirect(reverse('login'))
+        answer_form = forms.AnswerForm(request.POST)
+        if answer_form.is_valid():
+            answer_form.save(request, question_id)
+            return redirect(reverse('question', args=[question_id]))
+
+    
     page_obj = models.createPaginator(models.Question.objects.get_popular_answers(question_id), request)
-    context = models.get_context(page_obj=page_obj, tags=models.Tag.objects.get_popular_tags(), best_members=models.Profile.objects.get_five_best_members())
-    context['question'] = models.Question.objects.get(pk=question_id)
-    context['account'] = account
+    context = { 'page_obj' : page_obj, 'tags' : models.Tag.objects.get_popular_tags(), 'best_members' : models.Profile.objects.get_five_best_members(), 'question' : models.Question.objects.get(pk=question_id), 'account' : account, 'form' : answer_form }
 
     return render(request, 'question.html', context)
 
 
 def signup(request):
-    context = models.get_context(tags=models.Tag.objects.get_popular_tags(), best_members=models.Profile.objects.get_five_best_members())
+    account = forms.checkAuth(request=request)
+    if account:
+        redirect(reverse('index'))
+
+    if request.method == 'GET':
+        registration_form = forms.RegistartionForm()
+    elif request.method == 'POST':
+        registration_form = forms.RegistartionForm(request.POST)
+        if registration_form.is_valid():
+            registration_form.save(request)
+            username = registration_form.cleaned_data.get('username')
+            password = registration_form.cleaned_data.get('password')
+            user_auth = auth.authenticate(username=username, password=password)
+            auth.login(request, user_auth)
+            return redirect(reverse('index'))
+
+    context = { 'tags' : models.Tag.objects.get_popular_tags(), 'best_members' : models.Profile.objects.get_five_best_members(), 'form' : registration_form }
 
     return render(request, 'signup.html', context)
 
@@ -113,6 +146,7 @@ def hot(request):
     return render(request, 'hot.html', context)
 
 
+@login_required(login_url='/login')
 def log_out(request):
     auth.logout(request)
 
