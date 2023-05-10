@@ -6,7 +6,7 @@
 {% endblock body %}
 
 {% block content %}
-    <form novalidate action="{% url 'login' %}" method="post">
+    <form novalidate action="/login/?continue={{ request.GET.continue }}" method="post">
         {% csrf_token %}
         <div class="col-5">
             {% bootstrap_form form %}

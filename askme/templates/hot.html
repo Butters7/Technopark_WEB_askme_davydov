@@ -5,6 +5,13 @@
 {% endblock body %}
 
 {% block content %}
+{% if messages %}
+{% for message in messages %}
+    <div class="alert alert-{{ message.tags }} col-5">
+        {{ message }}
+    </div>
+{% endfor %}
+{% endif %}
 <div class="row mb-1">
     <div class="col-6">
         <h1 style="color: rgb(244, 16, 16);">Hot Questions</h1>

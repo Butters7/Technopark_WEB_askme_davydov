@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -7,7 +8,7 @@ from app import models
 from app import forms
 
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def ask(request):
     account = forms.checkAuth(request=request)
 
@@ -67,20 +68,21 @@ def log_in(request):
             user = auth.authenticate(request=request, **login_form.cleaned_data)
             if user:
                 auth.login(request, user)
-                return redirect(reverse('index'))
+                messages.success(request, 'You are in!')
+                reverse_url = request.GET.get('continue')
+                return redirect(reverse_url if reverse_url else 'index')
             login_form.add_error(None, "Invalid username or password")
             
     context = { 
         'tags' : models.Tag.objects.get_popular_tags(), 
         'best_members' : models.Profile.objects.get_five_best_members(), 
         'form' : login_form,
-        'path' : request.path 
     }
 
     return render(request, 'login.html', context)
 
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def settings(request):
     account = forms.checkAuth(request=request)
 
@@ -207,12 +209,14 @@ def hot(request):
     return render(request, 'hot.html', context)
 
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def log_out(request):
     continue_url = request.GET.get('continue')
     auth.logout(request)
+    messages.success(request, 'Account has been logged out')
 
     if continue_url:
         return redirect(continue_url)
+    
 
     return redirect('index')

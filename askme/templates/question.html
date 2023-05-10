@@ -20,6 +20,13 @@
 
 <div class="row question-big mb-3"></div>
 
+{% if messages %}
+{% for message in messages %}
+    <div class="alert alert-{{ message.tags }} col-5">
+        {{ message }}
+    </div>
+{% endfor %}
+{% endif %}
 <form novalidate action="{% url 'question' question.id %}" method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
