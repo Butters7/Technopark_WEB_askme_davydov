@@ -69,8 +69,8 @@ def log_in(request):
             if user:
                 auth.login(request, user)
                 messages.success(request, 'You are in!')
-                reverse_url = request.GET.get('continue')
-                return redirect(reverse_url if reverse_url else 'index')
+                reverse_url = request.GET.get('next')
+                return redirect(reverse_url if reverse_url else reverse('index'))
             login_form.add_error(None, "Invalid username or password")
             
     context = { 
