@@ -6,7 +6,7 @@
 {% endblock body %}
 
 {% block content %}
-<form novalidate action="{% url 'signup' %}" method="post">
+<form novalidate action="{% url 'signup' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="col-5">
         {% bootstrap_form form %}

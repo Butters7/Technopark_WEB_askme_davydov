@@ -13,7 +13,7 @@
         </div>
     {% endfor %}
     {% endif %}
-    <form novalidate action="{% url 'settings' %}" method="post">
+    <form novalidate action="{% url 'settings' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="col-5">
             {% bootstrap_form form %}

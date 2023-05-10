@@ -87,7 +87,7 @@ def settings(request):
     if request.method == 'GET':
         setting_form = forms.SettingForm()
     elif request.method == 'POST':
-        setting_form = forms.SettingForm(request.POST)
+        setting_form = forms.SettingForm(request.POST, files=request.FILES)
         if setting_form.is_valid():
             password = setting_form.cleaned_data.get('password')
             if not account.profile.check_password(password):
@@ -155,7 +155,7 @@ def signup(request):
     if request.method == 'GET':
         registration_form = forms.RegistartionForm()
     elif request.method == 'POST':
-        registration_form = forms.RegistartionForm(request.POST)
+        registration_form = forms.RegistartionForm(request.POST, files=request.FILES)
         if registration_form.is_valid():
             registration_form.save(request)
             username = registration_form.cleaned_data.get('username')
