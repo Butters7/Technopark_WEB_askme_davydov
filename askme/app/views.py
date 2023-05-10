@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
 from django.shortcuts import render, redirect
 from django.http import Http404
 from django.urls import reverse
@@ -9,6 +10,7 @@ from app import forms
 
 
 @login_required(login_url='/login/')
+@require_http_methods(['GET', 'POST'])
 def ask(request):
     account = forms.checkAuth(request=request)
 
@@ -31,6 +33,7 @@ def ask(request):
     return render(request, 'ask.html', context)
 
 
+@require_http_methods(['GET'])
 def base(request):
     account = forms.checkAuth(request=request)
 
@@ -44,6 +47,7 @@ def base(request):
     return render(request, 'base.html', context)
 
 
+@require_http_methods(['GET'])
 def index(request):
     account = forms.checkAuth(request=request)
     page_obj = models.createPaginator(models.Question.objects.get_news_question(), request)
@@ -59,6 +63,7 @@ def index(request):
     return render(request, 'index.html', context)
 
 
+@require_http_methods(['GET', 'POST'])
 def log_in(request):
     if request.method == 'GET':
         login_form = forms.LoginForm()
@@ -83,6 +88,7 @@ def log_in(request):
 
 
 @login_required(login_url='/login/')
+@require_http_methods(['GET', 'POST'])
 def settings(request):
     account = forms.checkAuth(request=request)
 
@@ -109,6 +115,7 @@ def settings(request):
     return render(request, 'settings.html', context)
 
 
+@require_http_methods(['GET', 'POST'])
 def question(request, question_id):
     if not models.Question.objects.filter(pk=question_id):
         raise Http404(f'Question_id {question_id} does not exist')
@@ -149,6 +156,7 @@ def question(request, question_id):
     return render(request, 'question.html', context)
 
 
+@require_http_methods(['GET', 'POST'])
 def signup(request):
     account = forms.checkAuth(request=request)
     if account:
@@ -175,6 +183,7 @@ def signup(request):
     return render(request, 'signup.html', context)
 
 
+@require_http_methods(['GET'])
 def tag(request, tag_name):
     if not models.Tag.objects.filter(name=tag_name):
         raise Http404(f'Tag {tag_name} does not exist')
@@ -194,6 +203,7 @@ def tag(request, tag_name):
     return render(request, 'tag.html', context)
 
 
+@require_http_methods(['GET'])
 def hot(request):
     account = forms.checkAuth(request=request)
     page_obj = models.createPaginator(models.Question.objects.get_hot_questions(), request)
@@ -210,6 +220,7 @@ def hot(request):
 
 
 @login_required(login_url='/login/')
+@require_http_methods(['GET'])
 def log_out(request):
     continue_url = request.GET.get('continue')
     auth.logout(request)

@@ -14,7 +14,7 @@ def checkAuth(request) :
 
 class LoginForm(forms.Form) :
     username = forms.CharField()
-    password = forms.CharField(min_length=8, widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput)
 
 
 class SettingForm(forms.Form):
