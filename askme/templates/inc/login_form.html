@@ -6,6 +6,6 @@
     <p class="align-items-center" style="margin-bottom: 0"><u>{{ account.profile.username }}</u></p>
     <div class="d-flex justify-content-center">
         <a class="btn btn-sm btn-secondary ms-1 me-1" href="{% url 'settings' %}" role="button">Settings</a>
-        <a class="btn btn-sm btn-secondary ms-1 me-1" href="{% url 'logout' %}" role="button">LogOut</a>
+        <a class="btn btn-sm btn-secondary ms-1 me-1" href="{% url 'logout' %}?continue={{ path }}" role="button">LogOut</a>
     </div>
 </div>

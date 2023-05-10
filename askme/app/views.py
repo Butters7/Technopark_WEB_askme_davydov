@@ -19,15 +19,26 @@ def ask(request):
             question = ask_form.save(request)
             return redirect(reverse('question', args=[question.id]))
         
-    context = { 'tags' : models.Tag.objects.get_popular_tags(), 'best_members' : models.Profile.objects.get_five_best_members(), 'form' : ask_form, 'account' : account }
+    context = { 
+        'tags' : models.Tag.objects.get_popular_tags(), 
+        'best_members' : models.Profile.objects.get_five_best_members(), 
+        'form' : ask_form, 
+        'account' : account, 
+        'path' : request.path 
+    }
 
     return render(request, 'ask.html', context)
 
 
 def base(request):
     account = forms.checkAuth(request=request)
-    context = models.get_context(tags=models.Tag.objects.get_popular_tags(), best_members=models.Profile.objects.get_five_best_members())
-    context['account'] = account
+
+    context = { 
+        'tags' : models.Tag.objects.get_popular_tags(), 
+        'best_members' : models.Profile.objects.get_five_best_members(),
+        'account' : account,
+        'path' : request.path,
+    }
 
     return render(request, 'base.html', context)
 
@@ -35,8 +46,14 @@ def base(request):
 def index(request):
     account = forms.checkAuth(request=request)
     page_obj = models.createPaginator(models.Question.objects.get_news_question(), request)
-    context = models.get_context(page_obj, models.Tag.objects.get_popular_tags(), models.Profile.objects.get_five_best_members())
-    context['account'] = account
+
+    context = { 
+        'page_obj' : page_obj, 
+        'tags' : models.Tag.objects.get_popular_tags(), 
+        'best_members' : models.Profile.objects.get_five_best_members(),
+        'account' : account,
+        'path' : request.path,
+    }
 
     return render(request, 'index.html', context)
 
@@ -53,7 +70,12 @@ def log_in(request):
                 return redirect(reverse('index'))
             login_form.add_error(None, "Invalid username or password")
             
-    context = { 'tags' : models.Tag.objects.get_popular_tags(), 'best_members' : models.Profile.objects.get_five_best_members(), 'form' : login_form }
+    context = { 
+        'tags' : models.Tag.objects.get_popular_tags(), 
+        'best_members' : models.Profile.objects.get_five_best_members(), 
+        'form' : login_form,
+        'path' : request.path 
+    }
 
     return render(request, 'login.html', context)
 
@@ -74,7 +96,13 @@ def settings(request):
                 setting_form.save(request)
                 return redirect(reverse('settings'))
 
-    context = { 'tags' : models.Tag.objects.get_popular_tags(), 'best_members' : models.Profile.objects.get_five_best_members(), 'form' : setting_form, 'account' : account }
+    context = { 
+        'tags' : models.Tag.objects.get_popular_tags(), 
+        'best_members' : models.Profile.objects.get_five_best_members(), 
+        'form' : setting_form, 
+        'account' : account, 
+        'path' : request.path 
+    }
 
     return render(request, 'settings.html', context)
 
@@ -84,20 +112,37 @@ def question(request, question_id):
         raise Http404(f'Question_id {question_id} does not exist')
     
     account = forms.checkAuth(request=request)
+
+    context = { 
+        'tags' : models.Tag.objects.get_popular_tags(), 
+        'best_members' : models.Profile.objects.get_five_best_members(), 
+        'question' : models.Question.objects.get(pk=question_id), 
+        'account' : account,  
+        'path' : request.path 
+    }
     
     if request.method == 'GET':
+        page_obj = models.createPaginator(models.Question.objects.get_popular_answers(question_id), request)
+        context['page_obj'] = page_obj
         answer_form = forms.AnswerForm()
     elif request.method == 'POST':
         if not account:
             return redirect(reverse('login'))
         answer_form = forms.AnswerForm(request.POST)
         if answer_form.is_valid():
-            answer_form.save(request, question_id)
-            return redirect(reverse('question', args=[question_id]))
+            answer = answer_form.save(request, question_id)
+            context['form'] = forms.AnswerForm()
+            list_obj = models.Question.objects.get_popular_answers(question_id)
+            paginator = models.Paginator(list_obj, 3)
 
-    
-    page_obj = models.createPaginator(models.Question.objects.get_popular_answers(question_id), request)
-    context = { 'page_obj' : page_obj, 'tags' : models.Tag.objects.get_popular_tags(), 'best_members' : models.Profile.objects.get_five_best_members(), 'question' : models.Question.objects.get(pk=question_id), 'account' : account, 'form' : answer_form }
+            for page_number in paginator.page_range:
+                page_obj = paginator.get_page(page_number)
+
+                for obj in page_obj.object_list:
+                    if obj.id == answer.id:
+                        return redirect(reverse('question', args=[question_id]) + f'?page={page_obj.number}')
+        
+    context['form'] = answer_form
 
     return render(request, 'question.html', context)
 
@@ -119,7 +164,11 @@ def signup(request):
             auth.login(request, user_auth)
             return redirect(reverse('index'))
 
-    context = { 'tags' : models.Tag.objects.get_popular_tags(), 'best_members' : models.Profile.objects.get_five_best_members(), 'form' : registration_form }
+    context = { 
+        'tags' : models.Tag.objects.get_popular_tags(), 
+        'best_members' : models.Profile.objects.get_five_best_members(), 
+        'form' : registration_form 
+    }
 
     return render(request, 'signup.html', context)
 
@@ -130,9 +179,15 @@ def tag(request, tag_name):
 
     account = forms.checkAuth(request=request)
     page_obj = models.createPaginator(models.Question.objects.get_question_with_special_tag(tag_name), request)
-    context = models.get_context(page_obj=page_obj, tags=models.Tag.objects.get_popular_tags(), best_members=models.Profile.objects.get_five_best_members())
-    context['tag_name'] = tag_name
-    context['account'] = account
+
+    context = { 
+        'page_obj' : page_obj, 
+        'tags' : models.Tag.objects.get_popular_tags(), 
+        'best_members' : models.Profile.objects.get_five_best_members(),
+        'tag_name' : tag_name,
+        'account' : account,
+        'path' : request.path,
+    }
 
     return render(request, 'tag.html', context)
 
@@ -140,14 +195,24 @@ def tag(request, tag_name):
 def hot(request):
     account = forms.checkAuth(request=request)
     page_obj = models.createPaginator(models.Question.objects.get_hot_questions(), request)
-    context = models.get_context(page_obj=page_obj, tags=models.Tag.objects.get_popular_tags(), best_members=models.Profile.objects.get_five_best_members())
-    context['account'] = account
+
+    context = { 
+        'page_obj' : page_obj, 
+        'tags' : models.Tag.objects.get_popular_tags(), 
+        'best_members' : models.Profile.objects.get_five_best_members(), 
+        'account' : account, 
+        'path' : request.path 
+    }
 
     return render(request, 'hot.html', context)
 
 
 @login_required(login_url='/login')
 def log_out(request):
+    continue_url = request.GET.get('continue')
     auth.logout(request)
+
+    if continue_url:
+        return redirect(continue_url)
 
     return redirect('index')
