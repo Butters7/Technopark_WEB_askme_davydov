@@ -6,6 +6,13 @@
 {% endblock body %}
 
 {% block content %}
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} col-5">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% endif %}
     <form novalidate action="/login/?next={{ request.GET.next }}" method="post">
         {% csrf_token %}
         <div class="col-5">

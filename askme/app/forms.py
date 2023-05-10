@@ -26,16 +26,20 @@ class SettingForm(forms.Form):
     new_password_check = forms.CharField(required=False, min_length=8, widget=forms.PasswordInput)
     avatar = forms.ImageField(required=False, widget=forms.FileInput)
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+
+        if username and models.User.objects.filter(username=username).exists():
+            self.add_error('username', 'This username is already taken.')
+
+        return username
+
     def clean(self):
         cleaned_data = super().clean()
-        username = cleaned_data.get('username')
         new_password = cleaned_data.get('new_password')
         new_password_check = cleaned_data.get('new_password_check')
         password = cleaned_data.get('password')
         password_check = cleaned_data.get('password_check')
-
-        if username and models.User.objects.filter(username=username).exists():
-            self.add_error('username', 'This username is already taken.')
 
         if new_password and new_password != new_password_check:
             self.add_error('new_password', '')
@@ -81,26 +85,38 @@ class RegistartionForm(forms.Form):
     password_check = forms.CharField(required=True, widget=forms.PasswordInput)
     avatar = forms.ImageField(required=False, widget=forms.FileInput)
 
-    def clean(self):
-        cleaned_data = super().clean()
-        username = cleaned_data.get('username')
-        email = cleaned_data.get('email')
-        password = cleaned_data.get('password')
-        password_check = cleaned_data.get('password_check')
-        full_name = cleaned_data.get('full_name')
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+
+        if models.User.objects.filter(username=username).exists():
+            self.add_error('username', 'This username already exists!')
+
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
 
         if email and models.User.objects.filter(email=email).exists():
             self.add_error('email', 'Email already registred!')
 
-        if username and models.User.objects.filter(username=username).exists():
-            self.add_error('username', 'This username already exists!')
-
-        if password and password != password_check:
-            self.add_error('password', '')
-            self.add_error('password_check', 'Password does not equal!')
+        return email
+    
+    def clean_full_name(self):
+        full_name = self.cleaned_data.get('full_name')
 
         if full_name and len(full_name.split()) == 1:
             self.add_error('full_name', 'Full name must contain 2 words at least')
+
+        return full_name
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        password_check = cleaned_data.get('password_check')
+
+        if password != password_check:
+            self.add_error('password', '')
+            self.add_error('password_check', 'Password does not equal!')
 
         return cleaned_data
 
@@ -154,14 +170,8 @@ class AskForm(forms.Form):
     description = forms.CharField(required=True, max_length=500, widget=forms.Textarea)
     tags = forms.CharField(required=True, max_length=50)
 
-    def clean(self):
-        cleaned_data = super().clean()
-        title = cleaned_data.get('title')
-        description = cleaned_data.get('description')
-        tags = cleaned_data.get('tags')
-
-        if not title or not description or not tags:
-            self.add_error(None, 'Please fill all fields!')
+    def clean_tags(self):
+        tags = self.cleaned_data.get('tags')
 
         tags_array = tags.split()
         for tag in tags_array:
@@ -169,7 +179,7 @@ class AskForm(forms.Form):
                 self.add_error('tags', f'Tag {tag} is too large (MaxLength of one tag is 10)!')
                 break
 
-        return cleaned_data
+        return tags
     
     def save(self, request):
         user = models.User.objects.get(username=request.user)
