@@ -1,9 +1,9 @@
 from django.contrib import messages
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_http_methods, require_POST
 from django.shortcuts import render, redirect
-from django.http import Http404
+from django.http import Http404, HttpResponse, JsonResponse
 from django.urls import reverse
 from app import models
 from app import forms
@@ -231,3 +231,88 @@ def log_out(request):
     
 
     return redirect('index')
+
+
+@login_required()
+@require_POST
+def vote_up(request):
+    question_id = request.POST.get('question_id')
+
+    try:
+        question = models.Question.objects.get(id=question_id)
+    except models.Question.DoesNotExist:
+        return JsonResponse({
+            'error': 'Question not found'
+        }, status=404)
+
+    user_profile = request.user.profile
+    existing_like = models.LikedQuestions.objects.filter(question=question, user_profile=user_profile).exists()
+
+    if not existing_like:
+        like = models.LikedQuestions.objects.create(question=question, user_profile=user_profile)
+        like.save()
+    else:
+        models.LikedQuestions.objects.get(question=question, user_profile=user_profile).delete()
+
+    total_likes = question.likedquestions_set.count()
+
+    return JsonResponse({
+        'new_rating': total_likes
+    })
+
+
+@login_required()
+@require_POST
+def vote_answer(request):
+    answer_id = request.POST.get('answer_id')
+    
+    try:
+        answer = models.Answer.objects.get(id=answer_id)
+    except models.Answer.DoesNotExist:
+        return JsonResponse({
+            'error': 'Answer not found'
+        }, status=404)
+    
+    user_profile = request.user.profile
+    existing_like = models.LikedAnswers.objects.filter(answer=answer, user_profile=user_profile).exists()
+
+    if not existing_like:
+        like = models.LikedAnswers.objects.create(answer=answer, user_profile=user_profile)
+        like.save()
+    else:
+        models.LikedAnswers.objects.get(answer=answer, user_profile=user_profile).delete()
+
+    total_likes = answer.likedanswers_set.count()
+
+    return JsonResponse({
+        'new_rating': total_likes
+    })
+
+
+@login_required()
+@require_POST
+def set_correct(request):
+    answer_id = request.POST.get('answer_id')
+
+    try:
+        answer = models.Answer.objects.get(id=answer_id)
+    except models.Answer.DoesNotExist:
+        return JsonResponse({
+            'answer_error': 'Answer not found'
+        }, status=404)
+    
+    user_profile = request.user.profile
+    question_author = answer.question.user_profile
+
+    if (user_profile == question_author):
+        answer.correct = not answer.correct
+        answer.save()
+    else:
+        return JsonResponse({
+            'user_error': 'User is not author of this question',
+            'answer_correct': answer.correct
+        }, status=403)
+    
+    return JsonResponse({
+        'answer_correct': answer.correct
+    })

@@ -12,4 +12,7 @@ urlpatterns = [
     path('settings', views.settings, name="settings"),
     path('signup', views.signup, name="signup"),
     path('tag/<str:tag_name>', views.tag, name="tag"),
+    path('vote_up', views.vote_up, name= 'vote_up'),
+    path('vote_answer', views.vote_answer, name='vote_answer'),
+    path('set_correct', views.set_correct, name='set_correct'),
 ]

@@ -53,7 +53,7 @@ class ModelManager(models.Manager):
 
 class Profile(models.Model):
     profile = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-    avatar = models.ImageField(upload_to='upload/', default='upload/User.png')
+    avatar = models.ImageField(upload_to='avatars/%Y/%m/%d/', default='upload/User.png')
     objects = ModelManager()
 
 
@@ -120,7 +120,7 @@ class LikedQuestions(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['question', 'user_profile'], name='unique_question_likes')
         ]
-        
+
 
     def __str__(self):
         return f'{self.user_profile.profile.username} rate question "{self.question.name}"'

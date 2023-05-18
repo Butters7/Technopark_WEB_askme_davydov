@@ -1,4 +1,5 @@
 {% extends 'inc/template.html' %}
+{% load static %}
 
 {% block body %}
 <body class="d-flex flex-column h-100 background-questions">
@@ -26,5 +27,8 @@
 {% endfor %}
 
 {% include 'inc/pagination.html' %}
+
+<script src="{% static 'js/jquery-3.7.0.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
 
 {% endblock content %}

@@ -8,6 +8,10 @@
     {{ question.user_profile.profile.username }}
 {% endblock user_name %}
 
+{% block q_id %}
+    {{ question.id }}
+{% endblock q_id %}
+
 {% block count_of_likes %}
     {{ question.likes.count }}
 {% endblock count_of_likes %}
